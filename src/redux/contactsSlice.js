@@ -1,27 +1,20 @@
-import { createSelector, createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { getContacts, addContact, deleteContact } from './contactsOps';
-import { selectContacts, selectNameFilter } from './selectors';
 
 const slice = createSlice({
   name: 'contacts',
   initialState: {
-    items: [], // Зберігаємо контакти тут
+    items: [],
     isLoading: false,
     isError: null,
-  },
-  reducers: {
-    resetFlags: state => {
-      state.added = false;
-      state.deleted = false;
-    },
   },
   extraReducers: builder => {
     builder
       .addCase(getContacts.fulfilled, (state, action) => {
-        state.items = action.payload; // Оновлюємо items, а не contacts
+        state.items = action.payload;
       })
       .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload); // Пушимо у items
+        state.items.push(action.payload);
         state.added = true;
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
@@ -63,13 +56,3 @@ const slice = createSlice({
 
 export const contactsReducer = slice.reducer;
 export const { resetFlags } = slice.actions;
-
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectNameFilter],
-  (contacts, nameFilter) => {
-    const normalizedFilter = nameFilter ? nameFilter.toLowerCase() : ''; // Додаємо перевірку на undefined
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normalizedFilter)
-    );
-  }
-);

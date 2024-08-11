@@ -12,9 +12,9 @@ export default function SearchBox() {
       <h2 className={s.title}>Find contacts by name</h2>
       <input
         className={s.input}
-        value={currentInput}
         type="text"
-        onChange={e => dispatch(changeFilter(e.target.value.trim()))}
+        value={currentInput}
+        onChange={e => dispatch(changeFilter(e.target.value))}
       />
     </div>
   );

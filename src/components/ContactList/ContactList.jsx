@@ -5,7 +5,7 @@ import { selectIsError, selectIsLoading } from '../../redux/selectors';
 import { useEffect } from 'react';
 import { getContacts } from '../../redux/contactsOps';
 import toast, { Toaster } from 'react-hot-toast';
-import { selectFilteredContacts } from '../../redux/contactsSlice';
+import { selectFilteredContacts } from '../../redux/filtersSlice';
 
 export default function ContactList() {
   const dispatch = useDispatch();

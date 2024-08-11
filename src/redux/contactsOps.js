@@ -10,7 +10,7 @@ export const getContacts = createAsyncThunk(
       const response = await axios.get('contacts');
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message); // Виправлено 'massage' на 'message'
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
@@ -22,7 +22,7 @@ export const addContact = createAsyncThunk(
       const response = await axios.post('contacts', { name, number });
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message); // Виправлено 'massage' на 'message'
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
@@ -31,10 +31,10 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, thunkAPI) => {
     try {
-      const response = await axios.delete(`contacts/${id}`); // Виправлено на зворотні лапки для інтерполяції
+      const response = await axios.delete(`contacts/${id}`);
       return id;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e); // Виправлено 'massage' на 'message'
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
