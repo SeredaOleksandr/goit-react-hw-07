@@ -13,7 +13,7 @@ export default function SearchBox() {
       <input
         className={s.input}
         type="text"
-        value={currentInput}
+        value={currentInput || ''}
         onChange={e => dispatch(changeFilter(e.target.value))}
       />
     </div>
