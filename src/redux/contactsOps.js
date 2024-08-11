@@ -32,9 +32,9 @@ export const deleteContact = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await axios.delete(`contacts/${id}`); // Виправлено на зворотні лапки для інтерполяції
-      return response.data;
+      return id;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message); // Виправлено 'massage' на 'message'
+      return thunkAPI.rejectWithValue(e); // Виправлено 'massage' на 'message'
     }
   }
 );

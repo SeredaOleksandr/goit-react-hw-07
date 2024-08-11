@@ -1,22 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Contact from '../Contact/Contact';
 import s from './ContactList.module.css';
-import {
-  selectFilteredContacts,
-  selectIsError,
-  selectIsLoading,
-  selectNameFilter,
-} from '../../redux/selectors';
+import { selectIsError, selectIsLoading } from '../../redux/selectors';
 import { useEffect } from 'react';
 import { getContacts } from '../../redux/contactsOps';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
+import { selectFilteredContacts } from '../../redux/contactsSlice';
 
 export default function ContactList() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilteredContacts);
   const isError = useSelector(selectIsError);
   const isLoading = useSelector(selectIsLoading);
-  const filter = useSelector(selectNameFilter) || ''; // Додамо перевірку на випадок, якщо filter є undefined
 
   useEffect(() => {
     dispatch(getContacts());
@@ -37,10 +32,13 @@ export default function ContactList() {
   }, [isLoading, isError]);
 
   return (
-    <ul className={s.contactList}>
-      {contacts.length > 0
-        ? contacts.map(contact => <Contact key={contact.id} {...contact} />)
-        : !isLoading && !isError && <p>Contacts not found</p>}
-    </ul>
+    <>
+      <ul className={s.contactList}>
+        {contacts.length > 0
+          ? contacts.map(contact => <Contact key={contact.id} {...contact} />)
+          : !isLoading && !isError && <p>Contacts not found</p>}
+      </ul>
+      <Toaster />
+    </>
   );
 }

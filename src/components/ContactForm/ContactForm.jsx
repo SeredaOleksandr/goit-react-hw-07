@@ -17,8 +17,8 @@ export default function ContactForm() {
       .required('Required'),
     number: Yup.string()
       .matches(
-        /^\d{3}-\d{2}-\d{2}$/,
-        'Phone number must be in the format 111-11-11'
+        /^\d{3}-\d{3}-\d{4}$/,
+        'Phone number must be in the format 111-111-1111'
       )
       .required('Required'),
   });

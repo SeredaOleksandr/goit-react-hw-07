@@ -14,7 +14,7 @@ export default function SearchBox() {
         className={s.input}
         value={currentInput}
         type="text"
-        onChange={e => dispatch(changeFilter(e.target.value))}
+        onChange={e => dispatch(changeFilter(e.target.value.trim()))}
       />
     </div>
   );

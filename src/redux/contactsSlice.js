@@ -1,5 +1,6 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSelector, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { getContacts, addContact, deleteContact } from './contactsOps';
+import { selectContacts, selectNameFilter } from './selectors';
 
 const slice = createSlice({
   name: 'contacts',
@@ -7,6 +8,12 @@ const slice = createSlice({
     items: [], // Зберігаємо контакти тут
     isLoading: false,
     isError: null,
+  },
+  reducers: {
+    resetFlags: state => {
+      state.added = false;
+      state.deleted = false;
+    },
   },
   extraReducers: builder => {
     builder
@@ -55,3 +62,14 @@ const slice = createSlice({
 });
 
 export const contactsReducer = slice.reducer;
+export const { resetFlags } = slice.actions;
+
+export const selectFilteredContacts = createSelector(
+  [selectContacts, selectNameFilter],
+  (contacts, nameFilter) => {
+    const normalizedFilter = nameFilter ? nameFilter.toLowerCase() : ''; // Додаємо перевірку на undefined
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter)
+    );
+  }
+);
